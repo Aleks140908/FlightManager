@@ -34,7 +34,7 @@ namespace FlightManager
                 if (value <= 0) throw new ArgumentException("There is no such price. The number needs to be positive");//изписва текста и показва цхе има грешка
                 price = value;
             }
-
+            
         }
        
 
