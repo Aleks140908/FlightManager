@@ -8,13 +8,49 @@ namespace FlightManager
 {
     public class Flight
     {
-        public int fightID {  get; set; }
+        private bool isSeatAvailable;
+        private decimal price;
+        public int fightID { get; set; }
 
         public string destination { get; set; }
 
         public DateTime deparatureTime { get; set; }
         public DateTime arrivalTime { get; set; }
-        public int seatsAvailable { get; set; }
-        public decimal price { get; set; }
+        public string SeatTaken { get; set; }
+        public int seatsAvailable
+        {
+            get; set;
+        }
+
+        public decimal Price
+        {
+            get
+            {
+                return price;
+            }
+            set
+            {
+                if (value <= 0) throw new ArgumentException("There is no such price. The number needs to be positive");
+                price = value;
+            }
+
+        }
+
+        public bool IsSeatAvailable
+        {
+            get
+            {
+                return isSeatAvailable;
+            }
+            set
+            {
+                isSeatAvailable = value;
+                if (isSeatAvailable)
+                {
+                    SeatTaken = string.Empty; //
+                }
+            }
+        }
     }
+
 }
