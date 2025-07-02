@@ -8,16 +8,17 @@ namespace FlightManager
 {
     public class Flight
     {
-        private bool isSeatAvailable;
+        
         private decimal price;
-        public int fightID { get; set; }
+        public string FlightID { get; set; }
 
-        public string destination { get; set; }
+        public string Destination { get; set; }
 
-        public DateTime deparatureTime { get; set; }
-        public DateTime arrivalTime { get; set; }
-        public string SeatTaken { get; set; }
-        public int seatsAvailable
+        public DateTime DeparatureTime { get; set; }
+        public DateTime ArrivalTime { get; set; }
+        
+        
+        public int SeatsAvailable
         {
             get; set;
         }
@@ -30,27 +31,29 @@ namespace FlightManager
             }
             set
             {
-                if (value <= 0) throw new ArgumentException("There is no such price. The number needs to be positive");
+                if (value <= 0) throw new ArgumentException("There is no such price. The number needs to be positive");//изписва текста и показва цхе има грешка
                 price = value;
             }
 
         }
+       
 
-        public bool IsSeatAvailable
+
+
+        public Flight() { }
+        public Flight(string destination, DateTime departure, DateTime arrival, decimal price)//конструктор
         {
-            get
-            {
-                return isSeatAvailable;
-            }
-            set
-            {
-                isSeatAvailable = value;
-                if (isSeatAvailable)
-                {
-                    SeatTaken = string.Empty; //
-                }
-            }
+            FlightID = Guid.NewGuid().ToString();//да съсдава уникално Id за всеки полет
+            Destination = destination;
+            DeparatureTime = departure;
+            ArrivalTime = arrival;
+            Price = price;
+
         }
+
+
+
+
     }
 
 }
