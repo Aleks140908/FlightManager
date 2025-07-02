@@ -8,5 +8,13 @@ namespace FlightManager
 {
     public class Flight
     {
+        public int fightID {  get; set; }
+
+        public string destination { get; set; }
+
+        public DateTime deparatureTime { get; set; }
+        public DateTime arrivalTime { get; set; }
+        public int seatsAvailable { get; set; }
+        public decimal price { get; set; }
     }
 }
