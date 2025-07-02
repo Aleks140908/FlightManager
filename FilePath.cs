@@ -8,5 +8,6 @@ namespace FlightManager
 {
     public class FilePath
     {
+        public const string FlightsFilePath = "flights.txt";
     }
 }
