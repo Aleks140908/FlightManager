@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlightManager
 {
-    internal class Flight
+    public class Flight
     {
     }
 }
