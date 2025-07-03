@@ -36,10 +36,6 @@ namespace FlightManager
             }
             
         }
-       
-
-
-
         public Flight() { }
         public Flight(string destination, DateTime departure, DateTime arrival, decimal price)//конструктор
         {
@@ -50,10 +46,6 @@ namespace FlightManager
             Price = price;
 
         }
-
-
-
-
     }
 
 }

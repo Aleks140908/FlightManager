@@ -4,19 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace FlightManager
 {
     public class FlightService
     {
-        public void AddNewFlight()
-        {
-
-        }
-        public void SellTicket()
+        public void AddFlight()
         {
             
-            
-
         }
+        public void SellTickets()
+        {
+            
+        }
+        public void CheckAvailability() { }
+        public void ShowAllFlights() { }
     }
 }
