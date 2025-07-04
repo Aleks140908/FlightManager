@@ -11,9 +11,14 @@ namespace FlightManager
     public class FlightService
 
     {
-        
-       
-        
+        private readonly Data data;// only read from class data
+
+        public FlightService()
+        {
+            data = new Data();
+        }
+
+
         public void AddFlight()
 
         {
