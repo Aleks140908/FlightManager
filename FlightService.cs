@@ -162,38 +162,65 @@ namespace FlightManager
             Console.ResetColor();
         }
 
-        
+
 
         public void CheckAvailability()
-        {      
-                Console.Write("Enter flight ID or destination: ");
-                string input = Console.ReadLine();
-                
-            List<Flight> matchingFlights = data.Flights
-                .Where(f => f.FlightID == input || f.Destination.Equals(input, StringComparison.OrdinalIgnoreCase))
-                .ToList();
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("=============================");
+            Console.WriteLine("  ?  AVAILABILITY CHECKER  ? ");//Показва функцията, която е избрал потребителят
+            Console.WriteLine("=============================");
+            Console.ResetColor();
 
-            if (matchingFlights.Count == 0)
+            string input;
+            while (true)
             {
+                Console.Write("Enter flight ID or destination: ");
+                input = Console.ReadLine();
+                int number;//запазва ако е число в number
+                if (!string.IsNullOrWhiteSpace(input) && !int.TryParse(input, out number))//проверява input дали не е празно или число
+                {
+                    break; //продължава извън цикъла
+                }
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Please enter a correct flight ID or destination.");
+                Console.ResetColor();
+            }
+            List<Flight> matchingFlights = data.Flights.Where(f => f.FlightID == input || f.Destination.Equals(input, StringComparison.OrdinalIgnoreCase)).ToList();
+            //достъпва списъка с полети от класа дата, проверява дали id или дестинацията ги има в списъка без значение как са написани (малки/главни букви и т.н.)
+
+            if (matchingFlights.Count == 0)//ако няма полети принтира съобщението
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No flights found.");
+                Console.ResetColor();
                 return;
             }
-        
+
             foreach (var flight in matchingFlights)
             {
-                Console.WriteLine($"Flight to {flight.Destination} ({flight.FlightID}) - Seats: {flight.SeatsAvailable}, Price: {flight.Price:C}");
+                //изписва информацията за дадения полет
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"Flight to {flight.Destination} ({flight.FlightID}) - Seats: {flight.SeatsAvailable}, Price: {flight.Price}");
+                Console.ResetColor();
             }
         }
-
         public void ShowAllFlights()
         {
-            if (data.Flights.Count == 0)
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("=============================");
+            Console.WriteLine("     <-  FLIGHTS LIST  ->    ");//Показва функцията, която е избрал потребителят
+            Console.WriteLine("=============================");
+            Console.ResetColor();
+
+            if (data.Flights.Count == 0)//проверява дали има полети от класа дата (във файлът).
             {
                 Console.WriteLine("No flights available.");
                 return;
             }
 
-            foreach (var flight in data.Flights)
+            foreach (var flight in data.Flights)//принтира всички полети
             {
                 Console.WriteLine($"ID: {flight.FlightID}, To: {flight.Destination}, Departure: {flight.DeparatureTime}, Arrival: {flight.ArrivalTime}, Price: {flight.Price:C}, Seats: {flight.SeatsAvailable}");
             }
