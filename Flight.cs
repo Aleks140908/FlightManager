@@ -26,6 +26,10 @@ namespace FlightManager
                 return MaxSeats - SeatsAvailable;//пресмята за метода CancelTickets, така че да не може да се върнат повече билети от колкото са били първоначално заявени
             }
         }
+        public int TicketsCancelled// следи колко билета са били отказани цялостно за статистиката
+        {
+            get; set;
+        }
 
         public decimal Price//проверяваме дали цената е по-малка от 0, ако е хвърляме exception (в setter-а)
         {

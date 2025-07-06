@@ -10,7 +10,7 @@ namespace FlightManager
 {
     public class FlightService
 
-    { 
+    {
         private readonly Data data;//само чете данните от класа дата
 
         public FlightService()
@@ -21,7 +21,7 @@ namespace FlightManager
 
         public void AddFlight()
         {
-            
+
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("=============================");
             Console.WriteLine("       + ADD FLIGHT +        ");//Показва функцията, която е избрал потребителят
@@ -232,7 +232,7 @@ namespace FlightManager
         }
         public void CancelTickets()
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("=============================");
             Console.WriteLine("     x CANCEL TICKETS x      ");
             Console.WriteLine("=============================");
@@ -286,12 +286,43 @@ namespace FlightManager
             }
 
             flight.SeatsAvailable += ticketsToCancel; // връща местата обратно
+            flight.TicketsCancelled += ticketsToCancel;//връща бройка обратно
             data.Save(); // записва в текстовия файл
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Successfully cancelled {ticketsToCancel} tickets. Updated seats available: {flight.SeatsAvailable}");
             Console.ResetColor();
         }
+        public void ShowAirlineStatistics()
+        {
+            int totalFlights = 0;
+            int totalTicketsSold = 0;
+            int totalTicketsCancelled = 0;
+            int totalSeats = 0;
+            //задаваме първоначално всички да са 0 и след това минаваме за всеки полет и добавяме в тях чрез foreach-а
+            foreach (var flight in data.Flights)
+            {
+                totalFlights++;
+                totalTicketsSold += flight.TicketsSold;
+                totalTicketsCancelled += flight.TicketsCancelled;
+                totalSeats += flight.MaxSeats;
+            }
 
+            double occupancyPercent = 0;
+            if (totalSeats > 0)// ако е положителноо число пресмята колко процента е заета авиокомпанията
+            {
+                occupancyPercent = (double)totalTicketsSold / totalSeats * 100;//общ брой продадени билети делено на всички места по 100 заради процента
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("======================================");
+            Console.WriteLine("        -> AIRLINE STATISTICS <-      ");
+            Console.WriteLine("======================================");
+            Console.ResetColor();
+            Console.WriteLine($"Total Flights: {totalFlights}");
+            Console.WriteLine($"Tickets Sold: {totalTicketsSold}");
+            Console.WriteLine($"Tickets Cancelled: {totalTicketsCancelled}");
+            Console.WriteLine($"Occupancy Percent: {occupancyPercent:F2}%");//до две зад запетайката
+        }
     }
 }

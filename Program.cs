@@ -22,6 +22,7 @@
                 Console.WriteLine("  3. Check Availability for a Flight");
                 Console.WriteLine("  4. Show Information for All Flights");
                 Console.WriteLine("  5. Cancelation of Tickets");
+                Console.WriteLine("  6. Airline Statistics");
                 Console.WriteLine("  0. Exit");
                 Console.ResetColor();
 
@@ -34,7 +35,7 @@
                     Console.ResetColor();
                     string input = Console.ReadLine();
 
-                    if (!string.IsNullOrWhiteSpace(input) && int.TryParse(input, out choice) && choice >= 0 && choice <= 5)//проверява дали не е празно и дали е число от менюто
+                    if (!string.IsNullOrWhiteSpace(input) && int.TryParse(input, out choice) && choice >= 0 && choice <= 6)//проверява дали не е празно и дали е число от менюто
                     {
                         break;//продължава със switch case-а, защото има валиден вход
                     }
@@ -65,6 +66,9 @@
                         break;
                     case 5:
                         flightService.CancelTickets();
+                        break;
+                    case 6:
+                        flightService.ShowAirlineStatistics();
                         break;
                     case 0:
                         Console.ForegroundColor = ConsoleColor.Gray;
