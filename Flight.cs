@@ -8,7 +8,7 @@ namespace FlightManager
 {
     public class Flight
     {
-        
+        //добавяме свойства на класа Flights
         private decimal price;
         public string FlightID { get; set; }
 
@@ -23,7 +23,7 @@ namespace FlightManager
             get; set;
         }
 
-        public decimal Price
+        public decimal Price//проверяваме дали цената е по-малка от 0, ако е хвърляме exception (в setter-а)
         {
             get
             {
@@ -31,14 +31,15 @@ namespace FlightManager
             }
             set
             {
-                if (value <= 0) throw new ArgumentException("There is no such price. The number needs to be positive");//изписва текста и показва цхе има грешка
+                if (value <= 0) throw new ArgumentException("There is no such price. The number needs to be positive");//изписва текста и показва, че има грешка
                 price = value;
             }
             
         }
-        public Flight() { }
+        public Flight() { }//празен конструктор, като default (само null-ове или 0)
         public Flight(string destination, DateTime departure, DateTime arrival, decimal price)//конструктор
         {
+            //задаваме стойности на свойствата
             FlightID = Guid.NewGuid().ToString();//да съсдава уникално Id за всеки полет
             Destination = destination;
             DeparatureTime = departure;
