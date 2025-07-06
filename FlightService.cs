@@ -118,7 +118,9 @@ namespace FlightManager
             Flight flight = null;
             while (flight == null) // повтаря се докато flight-а е наличен (докато се въведе валидно id)
             {
+                Console.ForegroundColor= ConsoleColor.Cyan;
                 Console.Write("Enter flight ID to book tickets for: ");
+                Console.ResetColor();
                 string id = Console.ReadLine();
                 flight = data.Flights.FirstOrDefault(f => f.FlightID == id);//търси първия полет с id като въведеното, ако не намери връща null
                 if (flight == null)//ако няма такъв полет принтира съобщението
@@ -175,6 +177,7 @@ namespace FlightManager
             string input;
             while (true)
             {
+                Console.WriteLine();
                 Console.Write("Enter flight ID or destination: ");
                 input = Console.ReadLine();
                 int number;//запазва ако е число в number
