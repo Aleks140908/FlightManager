@@ -165,10 +165,10 @@ namespace FlightManager
         
 
         public void CheckAvailability()
-        {
-            Console.Write("Enter flight ID or destination: ");
-            string input = Console.ReadLine();
-
+        {      
+                Console.Write("Enter flight ID or destination: ");
+                string input = Console.ReadLine();
+                
             List<Flight> matchingFlights = data.Flights
                 .Where(f => f.FlightID == input || f.Destination.Equals(input, StringComparison.OrdinalIgnoreCase))
                 .ToList();
@@ -178,7 +178,7 @@ namespace FlightManager
                 Console.WriteLine("No flights found.");
                 return;
             }
-
+        
             foreach (var flight in matchingFlights)
             {
                 Console.WriteLine($"Flight to {flight.Destination} ({flight.FlightID}) - Seats: {flight.SeatsAvailable}, Price: {flight.Price:C}");
@@ -198,7 +198,10 @@ namespace FlightManager
                 Console.WriteLine($"ID: {flight.FlightID}, To: {flight.Destination}, Departure: {flight.DeparatureTime}, Arrival: {flight.ArrivalTime}, Price: {flight.Price:C}, Seats: {flight.SeatsAvailable}");
             }
         }
+        public void CancelTickets()
+        {
 
+        }
 
 
 
