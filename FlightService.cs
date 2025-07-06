@@ -97,7 +97,9 @@ namespace FlightManager
                 Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("Please enter a positive whole number.");Console.ResetColor();
             }
 
-            Flight newFlight = new Flight(destination, departure, arrival, price) { SeatsAvailable = seats };//създава нов полет с подадените данни и задава колко свободни места има в seats available
+            Flight newFlight = new Flight(destination, departure, arrival, price) { SeatsAvailable = seats, MaxSeats = seats };
+            //създава нов полет с подадените данни и задава колко свободни места има в seats available
+            //също така добавя и колко са първоначалните свободни места, за CancelTickets
 
             data.Flights.Add(newFlight);//добавя новия полет в flights
             data.Save();//добавя в дата класа, който запазва информацията в текстовия файл
@@ -245,7 +247,7 @@ namespace FlightManager
                 Console.Write("Enter flight ID to cancel tickets from: ");
                 Console.ResetColor();
                 string id = Console.ReadLine();
-                flight = data.Flights.FirstOrDefault(f => f.FlightID == id);
+                flight = data.Flights.FirstOrDefault(f => f.FlightID == id);//проверява за id-то по същият начин както и в другите методи
                 if (flight == null)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -260,15 +262,25 @@ namespace FlightManager
                 Console.Write("Enter number of tickets to cancel: ");
                 string input = Console.ReadLine();
 
-                if (int.TryParse(input, out ticketsToCancel) && ticketsToCancel > 0)
+                if (int.TryParse(input, out ticketsToCancel) && ticketsToCancel > 0)//проверява дали входа е число и дали е положително
                 {
-                    // Ако има ограничение колко макс може да се върне, може да се добави проверка
-                    break;
+                    int ticketsSold = flight.TicketsSold;//приема го oт Flight, след като го е пресметнало там
+
+                    if (ticketsToCancel > ticketsSold)//ако върнатите са повече от купените хвърля грешка
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Cannot cancel {ticketsToCancel} tickets. Only {ticketsSold} tickets have been purchased.");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Please enter a valid positive number.");
+                    Console.WriteLine("Please enter a positive number.");
                     Console.ResetColor();
                 }
             }

@@ -16,12 +16,15 @@ namespace FlightManager
 
         public DateTime DeparatureTime { get; set; }
         public DateTime ArrivalTime { get; set; }
-        
 
-
-        public int SeatsAvailable
+        public int MaxSeats { get; set; } 
+        public int SeatsAvailable{get; set;}
+        public int TicketsSold
         {
-            get; set;
+            get
+            {
+                return MaxSeats - SeatsAvailable;//пресмята за метода CancelTickets, така че да не може да се върнат повече билети от колкото са били първоначално заявени
+            }
         }
 
         public decimal Price//проверяваме дали цената е по-малка от 0, ако е хвърляме exception (в setter-а)
