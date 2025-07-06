@@ -227,10 +227,56 @@ namespace FlightManager
         }
         public void CancelTickets()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("=============================");
+            Console.WriteLine("     x CANCEL TICKETS x      ");
+            Console.WriteLine("=============================");
+            Console.ResetColor();
 
+            ShowAllFlights(); // показва всички полети, за да избере потребителят
+
+            Flight flight = null;
+            while (flight == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("Enter flight ID to cancel tickets from: ");
+                Console.ResetColor();
+                string id = Console.ReadLine();
+                flight = data.Flights.FirstOrDefault(f => f.FlightID == id);
+                if (flight == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Flight not found. Try again.");
+                    Console.ResetColor();
+                }
+            }
+
+            int ticketsToCancel;
+            while (true)
+            {
+                Console.Write("Enter number of tickets to cancel: ");
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out ticketsToCancel) && ticketsToCancel > 0)
+                {
+                    // Ако има ограничение колко макс може да се върне, може да се добави проверка
+                    break;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Please enter a valid positive number.");
+                    Console.ResetColor();
+                }
+            }
+
+            flight.SeatsAvailable += ticketsToCancel; // връща местата обратно
+            data.Save(); // записва в текстовия файл
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Successfully cancelled {ticketsToCancel} tickets. Updated seats available: {flight.SeatsAvailable}");
+            Console.ResetColor();
         }
-
-
 
     }
 }

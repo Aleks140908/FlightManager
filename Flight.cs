@@ -17,7 +17,8 @@ namespace FlightManager
         public DateTime DeparatureTime { get; set; }
         public DateTime ArrivalTime { get; set; }
         
-        
+
+
         public int SeatsAvailable
         {
             get; set;
